@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "566734857411",
+    "firebase_url": "https://randomrestaurant-af23e.firebaseio.com",
+    "project_id": "randomrestaurant-af23e",
+    "storage_bucket": "randomrestaurant-af23e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566734857411:android:51fd36f3cf5668dc",
+        "android_client_info": {
+          "package_name": "com.example.randomrestaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566734857411-icavkrita4chdm107osh0m7bl94hk7oq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA63M5oEnFDhTnpc-3Jwan_uzuHzY-pHIw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RandomRestaurant</string>
+    <string name="title_Login">LOGIN</string>
+    <string name="title_home">HOME</string>
+    <string name="title_favorites_list">FAVORITES</string>
+    <string name="title_add_place">ADD RESTAURANT</string>
+    <string name="title_try_new">TRY NEW RESTAURANT</string>
+    <string name="title_random_results">RESULTS</string>
 </resources>
