@@ -1,42 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddRestaurantActivity">
 
 
-    <LinearLayout
-        android:layout_centerVertical="true"
+    <EditText
+        android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:hint="Enter name" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="ADD A RESTAURANT"
-            android:id="@+id/textViewADD"
-            android:layout_gravity="center_horizontal" />
+    <Spinner
+        android:id="@+id/spinnerRestaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextName"
+        ></Spinner>
 
-        <EditText
-            android:id="@+id/editRestaurant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:hint="Enter Restaurant"
-            android:inputType="text" />
+    <Button
+        android:id="@+id/buttonAddRestaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerRestaurant"
+        android:text="Add" />
 
-        <Button
-            android:id="@+id/buttonADD"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:onClick="gotoAdd"
-            android:text="ADD" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonAddRestaurant"
+        android:text="RESTAURANTS"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
 
-    </LinearLayout>
+    <ListView
+        android:id="@+id/listViewRestaurants"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"></ListView>
 
 </RelativeLayout>

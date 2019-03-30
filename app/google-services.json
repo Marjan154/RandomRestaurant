@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "566734857411",
-    "firebase_url": "https://randomrestaurant-af23e.firebaseio.com",
-    "project_id": "randomrestaurant-af23e",
-    "storage_bucket": "randomrestaurant-af23e.appspot.com"
+    "project_number": "252490988336",
+    "firebase_url": "https://restaurant-ffde7.firebaseio.com",
+    "project_id": "restaurant-ffde7",
+    "storage_bucket": "restaurant-ffde7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:566734857411:android:51fd36f3cf5668dc",
+        "mobilesdk_app_id": "1:252490988336:android:51fd36f3cf5668dc",
         "android_client_info": {
           "package_name": "com.example.randomrestaurant"
         }
       },
       "oauth_client": [
         {
-          "client_id": "566734857411-icavkrita4chdm107osh0m7bl94hk7oq.apps.googleusercontent.com",
+          "client_id": "252490988336-5th4gtc9inuiauotd9pvhngiqcb2delg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.randomrestaurant",
+            "certificate_hash": "b2c9f7cd784155466db16c85eb8317dad6f202ed"
+          }
+        },
+        {
+          "client_id": "252490988336-h3u227cs28npa74s8ups6dtmpnta3v80.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA63M5oEnFDhTnpc-3Jwan_uzuHzY-pHIw"
+          "current_key": "AIzaSyAMRbBlYLN04qnGCovz_Rx0wI6XKsyJUa4"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252490988336-h3u227cs28npa74s8ups6dtmpnta3v80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
