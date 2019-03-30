@@ -3,7 +3,9 @@ package com.example.randomrestaurant;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +21,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +75,38 @@ public class AddRestaurantActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //attaching value event listener
+        databaseRestaurants.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //clearing the previous artist list
+                restaurants.clear();
+
+                //iterating through all the nodes
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //getting artist
+                    String restaurant = postSnapshot.getValue().toString();
+                    //adding artist to the list
+                    restaurants.add(restaurant);
+                }
+
+                //creating adapter
+                RestaurantList restaurantAdapter = new RestaurantList(AddRestaurantActivity.this, restaurants);
+                //attaching adapter to the listview
+                listViewRestaurants.setAdapter(restaurantAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     /*
      * This method is saving a new artist to the
      * Firebase Realtime Database
@@ -100,5 +137,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
         }
     }
 }
+
+
 
 
