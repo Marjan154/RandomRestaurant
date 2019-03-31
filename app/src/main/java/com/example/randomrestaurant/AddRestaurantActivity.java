@@ -1,6 +1,7 @@
 package com.example.randomrestaurant;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_add_restaurant);
 
-        //getting the reference of artists node
+        //getting the reference of restaurants node
         databaseRestaurants = FirebaseDatabase.getInstance().getReference("restaurants");
 
         //getting views
@@ -59,7 +60,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
         listViewRestaurants = (ListView) findViewById(R.id.listViewRestaurants);
         buttonAddRestaurant = (Button) findViewById(R.id.buttonAddRestaurant);
 
-        //list to store artists
+        //list to store restaurants
         restaurants = new ArrayList<>();
 
 
@@ -67,12 +68,22 @@ public class AddRestaurantActivity extends AppCompatActivity {
         buttonAddRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //calling the method addArtist()
+                //calling the method addrestaurant()
                 //the method is defined below
                 //this method is actually performing the write operation
                 addRestaurant();
             }
         });
+
+        listViewRestaurants.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String restaurant = restaurants.get(i);
+                showDeleteDialog(restaurant);
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -83,14 +94,14 @@ public class AddRestaurantActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                //clearing the previous artist list
+                //clearing the previous restaurant list
                 restaurants.clear();
 
                 //iterating through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    //getting artist
+                    //getting restaurant
                     String restaurant = postSnapshot.getValue().toString();
-                    //adding artist to the list
+                    //adding restaurant to the list
                     restaurants.add(restaurant);
                 }
 
@@ -108,7 +119,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
     }
 
     /*
-     * This method is saving a new artist to the
+     * This method is saving a new restaurant to the
      * Firebase Realtime Database
      * */
     private void addRestaurant() {
@@ -119,12 +130,13 @@ public class AddRestaurantActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(name)) {
 
             //getting a unique id using push().getKey() method
-            //it will create a unique id and we will use it as the Primary Key for our Artist
+            //it will create a unique id and we will use it as the Primary Key for our restaurant
             String id = databaseRestaurants.push().getKey();
 
 
-            //Saving the Artist
-            databaseRestaurants.child(id).setValue(name);
+            //Saving the restaurant
+//            databaseRestaurants.child(id).setValue(name);
+            databaseRestaurants.child(name).setValue(name);
 
             //setting edittext to blank again
             editTextName.setText("");
@@ -135,6 +147,42 @@ public class AddRestaurantActivity extends AppCompatActivity {
             //if the value is not given displaying a toast
             Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void showDeleteDialog(final String restaurantName) {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.delete_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editTextName = (EditText) dialogView.findViewById(R.id.editTextName);
+        final Spinner spinnerRestaurant= (Spinner) dialogView.findViewById(R.id.spinnerRestaurant);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteRestaurant);
+
+        dialogBuilder.setTitle(restaurantName);
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                deleteRestaurant(restaurantName);
+                b.dismiss();
+
+            }
+        });
+    }
+
+    private boolean deleteRestaurant(String name) {
+        //getting the specified restaurant reference
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("restaurants").child(name);
+        //removing restaurant
+        dR.removeValue();
+
+        return true;
     }
 }
 
