@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
+    DatabaseReference databaseUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +48,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonSignup.setOnClickListener(this);
         textViewSignin.setOnClickListener(this);
 
-
+        databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
 
     }
 
     private void RegisterUser() {
         String email = editTextEmail.getText().toString().trim();
+        final String username = email;
         String password = editTextPassword.getText().toString().trim();
+
 
         if( TextUtils.isEmpty(email)){
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
@@ -71,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(task.isSuccessful()){
                     finish();
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    String id = databaseUsers.push().getKey();
+                    User CurrentUser = new User(id, username);
+                    databaseUsers.child(id).setValue(CurrentUser);
                 }else{
                     //display some message here
                     Toast.makeText(MainActivity.this,"Registration Error",Toast.LENGTH_LONG).show();
@@ -78,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 progressDialog.dismiss();
             }
         });
+
     }
 
     @Override
