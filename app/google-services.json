@@ -21,10 +21,6 @@
             "package_name": "com.example.randomrestaurant",
             "certificate_hash": "b2c9f7cd784155466db16c85eb8317dad6f202ed"
           }
-        },
-        {
-          "client_id": "252490988336-h3u227cs28npa74s8ups6dtmpnta3v80.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -33,20 +29,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "252490988336-h3u227cs28npa74s8ups6dtmpnta3v80.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
