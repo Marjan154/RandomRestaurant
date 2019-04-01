@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth firebaseAuth;
     DatabaseReference databaseUsers;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +61,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
         buttonSignup.setOnClickListener(this);
         textViewSignin.setOnClickListener(this);
-        
+
+
+        databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
+
     }
 
     private void registerUser() {
+
         String email = editTextEmail.getText().toString().trim();
         final String username = email;
         String password = editTextPassword.getText().toString().trim();
@@ -77,18 +82,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "Please enter a password", Toast.LENGTH_SHORT).show();
             return;
         }
-        Log.d(TAG, "Got password and email");
+
         progressDialog.setMessage("Registering Please Wait...");
         progressDialog.show();
-        Log.d(TAG, "Got password and email");
+
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 //checking if success
                 progressDialog.dismiss();
-                Log.d(TAG, "Making");
+
                 if(task.isSuccessful()){
-                    Log.d(TAG, "ENTERED SUCCESS");
                     finish();
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     String id = databaseUsers.push().getKey();
@@ -97,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }else{
                     //display some message here
                     Toast.makeText(MainActivity.this,"Registration Error",Toast.LENGTH_LONG).show();
-                    Log.d(TAG, "Failed");
                 }
             }
         });
