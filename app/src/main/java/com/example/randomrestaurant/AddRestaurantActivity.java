@@ -34,12 +34,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Math;
 
 public class AddRestaurantActivity extends AppCompatActivity {
     //view objects
     EditText editTextName;
     Spinner spinnerRestaurant;
     Button buttonAddRestaurant;
+    Button buttonFindRandomList;
     ListView listViewRestaurants;
 
     //a list to store all the restaurant from firebase database
@@ -71,11 +73,10 @@ private static final String TAG = "ADD RESTAURANT";
         spinnerRestaurant = (Spinner) findViewById(R.id.spinnerRestaurant);
         listViewRestaurants = (ListView) findViewById(R.id.listViewRestaurants);
         buttonAddRestaurant = (Button) findViewById(R.id.buttonAddRestaurant);
+        buttonFindRandomList = (Button) findViewById(R.id.buttonFindRandomList);
 
         //list to store restaurants
         restaurants = new ArrayList<>();
-
-
 
 
         //adding an onclicklistener to button
@@ -97,6 +98,15 @@ private static final String TAG = "ADD RESTAURANT";
                 return true;
             }
         });
+
+        buttonFindRandomList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                findRandom();
+            }
+        });
+
+
 
     }
 
@@ -238,7 +248,9 @@ private static final String TAG = "ADD RESTAURANT";
                     if(postSnapshot.getValue().toString().equals(name)){
                         String toDelete = postSnapshot.getKey();
                         DatabaseReference dR = databaseUser.child(toDelete);
+//                        dR.removeValue();
                         dR.removeValue();
+                        Log.d(TAG , "REMOVEEEE");
                     }
                 }
             }
@@ -248,9 +260,27 @@ private static final String TAG = "ADD RESTAURANT";
             }
         });
 
-
         return true;
     }
+
+    private void findRandom() {
+
+        if(!restaurants.isEmpty()){
+            int range = restaurants.size();
+            int rand = (int)(Math.random() * range) + 0;
+            String randomRestaurant = restaurants.get(rand);
+            Log.d(TAG, randomRestaurant);
+            Intent randomIntent = new Intent(AddRestaurantActivity.this, ResultsActivity.class);
+            randomIntent.putExtra("RandomRestaurant", randomRestaurant);
+            startActivity(randomIntent);
+        }
+
+        //return randomRestaurant;
+
+    }
+
+
+
 }
 
 
