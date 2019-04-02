@@ -150,6 +150,7 @@ private static final String TAG = "ADD RESTAURANT";
     private void addRestaurant() {
         //getting the values to save
         final String name = editTextName.getText().toString().trim();
+        data.clear();
         data.add(name);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
@@ -173,6 +174,7 @@ private static final String TAG = "ADD RESTAURANT";
                             ArrayList<String> currData=new ArrayList<>();
                             currData.add(postSnapshot.getValue().toString());
                             //String id  = databaseUsers.push().getKey();
+                            databaseUser.removeValue();
                             data.addAll(currData);
                             databaseUser.setValue(data);
 
@@ -221,11 +223,31 @@ private static final String TAG = "ADD RESTAURANT";
         });
     }
 
-    private boolean deleteRestaurant(String name) {
-        //getting the specified restaurant reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("restaurants").child(name);
-        //removing restaurant
-        dR.removeValue();
+    private boolean deleteRestaurant(final String name) {
+//        //getting the specified restaurant reference
+//        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("restaurants").child(name);
+//        //removing restaurant
+//        dR.removeValue();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String uid = user.getUid();
+        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList");
+        databaseUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    if(postSnapshot.getValue().toString().equals(name)){
+                        String toDelete = postSnapshot.getKey();
+                        DatabaseReference dR = databaseUser.child(toDelete);
+                        dR.removeValue();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         return true;
     }
