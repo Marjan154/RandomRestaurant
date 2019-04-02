@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
+            android:text="Random Restaurant Finder"
             android:id="@+id/textViewUserEmail"
             android:layout_gravity="center_horizontal" />
 
         <Button
-            android:id="@+id/add_home"
+            android:id="@+id/pick_favorites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:onClick="buttonAddClicked"
-            android:text="ADD" />
-        <!--tools:layout_editor_absoluteX="143dp"-->
-        <!--tools:layout_editor_absoluteY="152dp" />-->
+            android:onClick="buttonPickFromFavoritesClicked"
+            android:text="Pick From Favorites" />
 
         <Button
             android:id="@+id/try_new_home"
@@ -39,8 +36,6 @@
             android:clickable="true"
             android:onClick="gotoTryNew"
             android:text="TRY NEW" />
-        <!--tools:layout_editor_absoluteX="143dp"-->
-        <!--tools:layout_editor_absoluteY="236dp" />-->
 
         <Button
             android:id="@+id/view_fave_list"
@@ -57,5 +52,10 @@
             android:text="Logout"
             android:id="@+id/buttonLogout"
             android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>
+
+
+

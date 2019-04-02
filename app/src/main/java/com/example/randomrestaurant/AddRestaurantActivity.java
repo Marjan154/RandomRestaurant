@@ -29,17 +29,13 @@ import java.lang.Math;
 public class AddRestaurantActivity extends AppCompatActivity {
     //view objects
     EditText editTextName;
-    Spinner spinnerRestaurant;
     Button buttonAddRestaurant;
     Button buttonFindRandomList;
     ListView listViewRestaurants;
 
 
     List<String> restaurants;
-    ArrayList<String> data;
 
-
-    DatabaseReference databaseRestaurants;
     DatabaseReference databaseUsers;
 
     private static final String TAG = "ADD RESTAURANT";
@@ -49,13 +45,10 @@ public class AddRestaurantActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_add_restaurant);
 
-        databaseRestaurants = FirebaseDatabase.getInstance().getReference("restaurants");
         databaseUsers = FirebaseDatabase.getInstance().getReference("/");
-        data=new ArrayList<>();
 
 
         editTextName = (EditText) findViewById(R.id.editTextName);
-        spinnerRestaurant = (Spinner) findViewById(R.id.spinnerRestaurant);
         listViewRestaurants = (ListView) findViewById(R.id.listViewRestaurants);
         buttonAddRestaurant = (Button) findViewById(R.id.buttonAddRestaurant);
         buttonFindRandomList = (Button) findViewById(R.id.buttonFindRandomList);
@@ -116,7 +109,6 @@ public class AddRestaurantActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
         if (!TextUtils.isEmpty(name)) {
-
             FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList").child("/"+name).setValue(name);
             editTextName.setText("");
             Toast.makeText(this, "Restaurant added", Toast.LENGTH_LONG).show();
@@ -157,6 +149,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
         final String uid = user.getUid();
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList").child(name);
         dR.removeValue();
+        Toast.makeText(this, "Restaurant deleted", Toast.LENGTH_LONG).show();
         return true;
     }
 

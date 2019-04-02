@@ -54,18 +54,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        //if logout is pressed
         if(view == buttonLogout){
-            //logging out the user
             firebaseAuth.signOut();
-            //closing activity
             finish();
-            //starting login activity
             startActivity(new Intent(this, LoginActivity.class));
         }
     }
 
-    public void buttonAddClicked(View view){
+    public void buttonPickFromFavoritesClicked(View view){
         // Second view when click the button of the main view
         startActivity(new Intent(this, AddRestaurantActivity.class));
     }
