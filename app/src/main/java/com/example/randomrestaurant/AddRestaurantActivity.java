@@ -155,35 +155,27 @@ private static final String TAG = "ADD RESTAURANT";
         final String uid = user.getUid();
         final String uemail = user.getEmail();
 //        final DatabaseReference data = FirebaseDatabase.getInstance().getReference("/");
-        final DatabaseReference databaseUser =FirebaseDatabase.getInstance().getReference("/");
+        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList");
 
         //checking if the value is provided
         if (!TextUtils.isEmpty(name)) {
 
             //getting a unique id using push().getKey() method
             //it will create a unique id and we will use it as the Primary Key for our restaurant
-            String id = databaseRestaurants.push().getKey();
+            //String id = databaseRestaurants.push().getKey();
 
-            //Saving the restaurant
-//            databaseRestaurants.child(id).setValue(name);
-            //databaseRestaurants.child(name).setValue(name);
+           
             databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     //iterating through all the nodes
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        if (postSnapshot.getKey().equals(uid)) {
+                            ArrayList<String> currData=new ArrayList<>();
+                            currData.add(postSnapshot.getValue().toString());
+                            //String id  = databaseUsers.push().getKey();
+                            data.addAll(currData);
+                            databaseUser.setValue(data);
 
-//                            User user = postSnapshot.getValue(User.class);
-//                            data = user.getFavoritesList();
-////                            data.add(name);
-//                            User updated = new User(uid, uemail, data);
-                            Log.d(TAG, "THEY EQUAL");
-                            String id  = databaseUsers.push().getKey();
-                            databaseUser.child(uid).child("favoritesList").setValue(data);
-                            //databaseUser.child(id).setValue(name);
-
-                        }
                     }
                 }
 
@@ -192,9 +184,9 @@ private static final String TAG = "ADD RESTAURANT";
 
                 }
             });
-            //setting edittext to blank again
+
             editTextName.setText("");
-            //displaying a success toast
+
             Toast.makeText(this, "Restaurant added", Toast.LENGTH_LONG).show();
         }else {
             //if the value is not given displaying a toast
