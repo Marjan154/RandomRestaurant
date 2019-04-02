@@ -112,38 +112,16 @@ public class AddRestaurantActivity extends AppCompatActivity {
 
 
     private void addRestaurant() {
-        //getting the values to save
         final String name = editTextName.getText().toString().trim();
-        data.clear();
-        data.add(name);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
-        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList");
-
-
         if (!TextUtils.isEmpty(name)) {
 
-            databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            ArrayList<String> currData=new ArrayList<>();
-                            currData.add(postSnapshot.getValue().toString());
-                            data.addAll(currData);
-                            FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList").child("/"+name).setValue(name);
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
+            FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList").child("/"+name).setValue(name);
             editTextName.setText("");
-
             Toast.makeText(this, "Restaurant added", Toast.LENGTH_LONG).show();
-        }else {
+        }
+        else {
             //if the value is not given displaying a toast
             Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
         }
@@ -156,8 +134,6 @@ public class AddRestaurantActivity extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.delete_dialog, null);
         dialogBuilder.setView(dialogView);
 
-//        final EditText editTextName = (EditText) dialogView.findViewById(R.id.editTextName);
-//        final Spinner spinnerRestaurant= (Spinner) dialogView.findViewById(R.id.spinnerRestaurant);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteRestaurant);
 
         dialogBuilder.setTitle(restaurantName);

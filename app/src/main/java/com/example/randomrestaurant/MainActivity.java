@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 //        final String uid = user.getUid();
         final List<String> restaurants = new ArrayList<>();
-//        restaurants.add("pizza");
+//        restaurants.add("DummyDataToRemove");
         String password = editTextPassword.getText().toString().trim();
 
 
