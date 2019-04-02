@@ -106,7 +106,7 @@ private static final String TAG = "ADD RESTAURANT";
         //attaching value event listener
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
-        Log.d(TAG , uid);
+        Log.d(TAG , "we in on start");
         DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList");
 //        final String uemail = user.getEmail();
         databaseUser.addValueEventListener(new ValueEventListener() {
@@ -114,17 +114,18 @@ private static final String TAG = "ADD RESTAURANT";
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //clearing the previous restaurant list
-//                restaurants.clear();
+                restaurants.clear();
 
                 //iterating through all the nodes
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 //                    getting restaurant
-                    if (postSnapshot.getKey().equals(uid)) {
+                    //if (postSnapshot.getKey().equals(uid)) {
                         String r = postSnapshot.getValue().toString();
                         restaurants.add(r);
+                        Log.d(TAG , r);
                         RestaurantList restaurantAdapter = new RestaurantList(AddRestaurantActivity.this, restaurants);
                         listViewRestaurants.setAdapter(restaurantAdapter);
-                    }
+                    //}
 
 //                    String restaurant = postSnapshot.getValue().toString();
                     //
