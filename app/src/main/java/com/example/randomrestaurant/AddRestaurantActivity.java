@@ -47,6 +47,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
     //a list to store all the restaurant from firebase database
     List<String> restaurants;
     ArrayList<String> data;
+    String found;
 
 
 
@@ -94,7 +95,8 @@ private static final String TAG = "ADD RESTAURANT";
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String restaurant = restaurants.get(i);
-                showDeleteDialog(restaurant);
+                String index = Integer.toString(i);
+                showDeleteDialog(restaurant, index);
                 return true;
             }
         });
@@ -183,11 +185,8 @@ private static final String TAG = "ADD RESTAURANT";
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             ArrayList<String> currData=new ArrayList<>();
                             currData.add(postSnapshot.getValue().toString());
-                            //String id  = databaseUsers.push().getKey();
-                            databaseUser.removeValue();
                             data.addAll(currData);
-                            databaseUser.setValue(data);
-
+                            FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList").setValue(data);
                     }
                 }
 
@@ -206,7 +205,7 @@ private static final String TAG = "ADD RESTAURANT";
         }
     }
 //-------------------------------------------------------------------
-    private void showDeleteDialog(final String restaurantName) {
+    private void showDeleteDialog(final String restaurantName, final String Index) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -226,59 +225,56 @@ private static final String TAG = "ADD RESTAURANT";
             @Override
             public void onClick(View view) {
 
-                deleteRestaurant(restaurantName);
+                deleteRestaurant(Index);
                 b.dismiss();
 
             }
         });
     }
 
-    private boolean deleteRestaurant(final String name) {
+    private boolean deleteRestaurant(final String Index) {
 //        //getting the specified restaurant reference
-//        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("restaurants").child(name);
-//        //removing restaurant
-//        dR.removeValue();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
-        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList");
-        databaseUser.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    if(postSnapshot.getValue().toString().equals(name)){
-                        String toDelete = postSnapshot.getKey();
-                        DatabaseReference dR = databaseUser.child(toDelete);
-//                        dR.removeValue();
-                        dR.removeValue();
-                        Log.d(TAG , "REMOVEEEE");
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList").child(Index);
+        //removing restaurant
+        dR.removeValue();
+// ;
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        final String uid = user.getUid();
+//        final DatabaseReference databaseUser = FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList");
+//        databaseUser.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                    if(postSnapshot.getValue().toString().equals(name)){
+//                        found = postSnapshot.getKey().toString();
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("/").child("/"+uid).child("/favoritesList").child(found);
+//        dR.removeValue();
+//        Log.d(TAG , "REMOVEEEE");
 
         return true;
     }
 
     private void findRandom() {
-
         if(!restaurants.isEmpty()){
             int range = restaurants.size();
-            int rand = (int)(Math.random() * range) + 0;
+            int rand = (int)(Math.random() * range);
             String randomRestaurant = restaurants.get(rand);
-            Log.d(TAG, randomRestaurant);
             Intent randomIntent = new Intent(AddRestaurantActivity.this, ResultsActivity.class);
             randomIntent.putExtra("RandomRestaurant", randomRestaurant);
             startActivity(randomIntent);
         }
-
-        //return randomRestaurant;
-
     }
-
 
 
 }
