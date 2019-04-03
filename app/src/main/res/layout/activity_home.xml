@@ -6,6 +6,7 @@
     tools:context=".HomeActivity">
 
 
+
     <LinearLayout
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
@@ -17,8 +18,18 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Random Restaurant Finder"
-            android:id="@+id/textViewUserEmail"
+            android:id="@+id/t"
             android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/textViewUserEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="50dp"
+            android:text="Welcome Guest"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
 
         <Button
             android:id="@+id/pick_favorites"
@@ -37,14 +48,14 @@
             android:onClick="gotoTryNew"
             android:text="TRY NEW" />
 
-        <Button
-            android:id="@+id/view_fave_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:clickable="true"
-            android:onClick="gotoFavorites"
-            android:text="View Favorites" />
+        <!--<Button-->
+            <!--android:id="@+id/view_fave_list"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:clickable="true"-->
+            <!--android:onClick="gotoFavorites"-->
+            <!--android:text="View Favorites" />-->
 
         <Button
             android:layout_width="wrap_content"

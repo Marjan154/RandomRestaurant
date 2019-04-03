@@ -19,10 +19,13 @@ public class FavoritesListActivity extends AppCompatActivity {
 
     private List<String> restaurantList;
     private ArrayAdapter<String> adapter;
+    ListView listViewRestaurants;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites_list);
+
+        listViewRestaurants = (ListView) findViewById(R.id.listViewRestaurants);
 
         restaurantList = new ArrayList<>();
         restaurantList.add("Dominos");
