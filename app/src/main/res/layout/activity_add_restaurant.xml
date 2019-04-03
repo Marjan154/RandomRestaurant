@@ -27,6 +27,13 @@
         android:layout_below="@id/spinnerRestaurant"
         android:text="Add" />
 
+    <Button
+        android:id="@+id/buttonFindRandomList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonAddRestaurant"
+        android:text="Find Random" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"

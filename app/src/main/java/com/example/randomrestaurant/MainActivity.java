@@ -47,16 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //FirebaseApp.initializeApp(this);
-
         progressDialog = new ProgressDialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null){
-            //close this activity
             finish();
-            //opening lost activity
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         }
 
@@ -78,10 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String email = editTextEmail.getText().toString().trim();
         final String username = email;
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        final String uid = user.getUid();
         final List<String> restaurants = new ArrayList<>();
-//        restaurants.add("pizza");
         String password = editTextPassword.getText().toString().trim();
 
 
