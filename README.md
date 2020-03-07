@@ -8,7 +8,7 @@ Having difficulty picking a place to eat? This app helps you decide where to eat
 - SignUp/Login
 - This application stores a list of user favorite restaurants. These restaurants can be deleted.
 - This application picks a random restaurant from your list of favorites
-- This application asks for permission to use your location. Based on your location, and a distance the user inputs, and an optional cuisine type, it finds a random restaurant.
+- This application asks for permission to use your location. Based on your location, and a distance the user inputs, and an optional cuisine type, it finds a random restaurant using the Google Maps API
 
 Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.co](https://www.flaticon.com/)
 
