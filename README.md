@@ -10,15 +10,9 @@ Having difficulty picking a place to eat? This app helps you decide where to eat
 - This application picks a random restaurant from your list of favorites
 - This application asks for permission to use your location. Based on your location, and a distance the user inputs, and an optional cuisine type, it finds a random restaurant.
 
+Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.co](https://www.flaticon.com/)
 
-<div>
-            Icons made by
-            <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
-              Freepik
-            </a>
-            from
-            <a href="https://www.flaticon.com/" title="Flaticon">
-              www.flaticon.com
-            </a>
-          </div>
-          
+![](/random-restaurant-finder-pics/home.png)
+![](/random-restaurant-finder-pics/add.png)
+![](/random-restaurant-finder-pics/find.png)
+
